@@ -36,6 +36,7 @@ public class JwtUtil {
   }
 
   public Long extractRoomId(String token) {
-    return parseClaims(token).get("roomId", Long.class);
+    String roomIdStr = parseClaims(token).get("roomId", String.class);
+    return Long.parseLong(roomIdStr);
   }
 }
