@@ -16,12 +16,12 @@ public class BidService {
   private static final String RANKING_KEY_PREFIX = "auction:ranking:";
 
   public void updateRanking(BidEventDto event) {
-    String key = RANKING_KEY_PREFIX + event.itemId();
+    String key = RANKING_KEY_PREFIX + event.getItemId();
 
-    redisTemplate.opsForZSet().add(key, event.winnerNickname(), event.bidPrice().doubleValue());
+    redisTemplate.opsForZSet().add(key, event.getWinnerNickname(), event.getBidPrice().doubleValue());
 
     log.info("Redis 랭킹 업데이트 완료 - 경매방: {}, 유저: {}, 입찰가: {}",
-        event.itemId(), event.winnerNickname(), event.bidPrice());
+        event.getItemId(), event.getWinnerNickname(), event.getBidPrice());
 
     redisTemplate.opsForZSet().removeRange(key, 0, -101);
   }
