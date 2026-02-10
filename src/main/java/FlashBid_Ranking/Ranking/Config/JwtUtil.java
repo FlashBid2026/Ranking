@@ -3,7 +3,7 @@ package FlashBid_Ranking.Ranking.Config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ public class JwtUtil {
 
   @PostConstruct
   public void init() {
-    byte[] keyBytes = Base64.getDecoder().decode(secretKeyString);
+    byte[] keyBytes = secretKeyString.getBytes(StandardCharsets.UTF_8);
     this.secretKey = new SecretKeySpec(keyBytes, "HmacSHA256");
   }
 
